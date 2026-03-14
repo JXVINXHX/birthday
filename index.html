@@ -1,125 +1,370 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Feliz Cumpleaños</title>
+<title>Birthday Surprise</title>
 
 <style>
+
 body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-    font-family:Arial, Helvetica, sans-serif;
-    overflow:hidden;
+margin:0;
+font-family:Arial;
+background:black;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+overflow:hidden;
+transition:1s;
 }
 
-.container{
-    text-align:center;
-    color:white;
+/* terminal */
+
+#terminal{
+width:600px;
+height:220px;
+background:#020617;
+padding:20px;
+border-radius:10px;
+color:#00ff9c;
+font-family:monospace;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+overflow:auto;
 }
 
-h1{
-    font-size:70px;
-    animation:brillo 2s infinite alternate;
+/* button */
+
+#startBtn{
+margin-top:30px;
+padding:15px 35px;
+font-size:22px;
+border:none;
+border-radius:12px;
+background:#ff4fa3;
+color:white;
+cursor:pointer;
+display:none;
 }
 
-p{
-    font-size:25px;
-}
+/* balloons */
 
-@keyframes brillo{
-    from{ text-shadow:0 0 10px white;}
-    to{ text-shadow:0 0 30px yellow;}
+#balloons{
+display:none;
+position:absolute;
+bottom:-200px;
+width:100%;
+height:100%;
+pointer-events:none;
+transition:2s;
 }
-
-/* Globos */
 
 .balloon{
-    position:absolute;
-    bottom:-150px;
-    width:80px;
-    height:100px;
-    border-radius:50%;
-    animation:subir 10s infinite;
+width:100px;
+height:120px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+position:absolute;
+bottom:0;
+animation:float 5s ease-in-out infinite;
+box-shadow:0 10px 20px rgba(0,0,0,0.4);
+pointer-events:auto;
 }
 
-.balloon:after{
-    content:"";
-    position:absolute;
-    width:2px;
-    height:60px;
-    background:white;
-    left:50%;
-    top:100%;
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-25px)}
+100%{transform:translateY(0)}
 }
 
-@keyframes subir{
-    0%{ transform:translateY(0);}
-    100%{ transform:translateY(-120vh);}
+.b1{background:#ff6b6b;left:10%}
+.b2{background:#ffd93d;left:30%}
+.b3{background:#6bc5ff;left:50%}
+.b4{background:#b36bff;left:70%}
+.b5{background:#ff9ecf;left:85%}
+
+/* parchment */
+
+#scroll{
+display:none;
+position:absolute;
+background:#fff8dc;
+padding:30px;
+border-radius:10px;
+width:420px;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+border:4px solid #d2b48c;
+font-family:Georgia;
+animation:openScroll 0.6s;
 }
 
-/* colores globos */
-
-.b1{background:red; left:10%; animation-duration:9s;}
-.b2{background:blue; left:25%; animation-duration:11s;}
-.b3{background:yellow; left:40%; animation-duration:10s;}
-.b4{background:purple; left:60%; animation-duration:12s;}
-.b5{background:orange; left:75%; animation-duration:8s;}
-.b6{background:lime; left:90%; animation-duration:13s;}
-
-/* pastel */
-
-.cake{
-    font-size:80px;
-    margin-top:20px;
+@keyframes openScroll{
+from{transform:scale(0)}
+to{transform:scale(1)}
 }
 
-/* confeti */
+#scroll button{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:#ff4fa3;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* cake */
+
+#cakeArea{
+display:none;
+flex-direction:column;
+align-items:center;
+}
+
+#cake{
+font-size:120px;
+}
+
+.candle{
+font-size:35px;
+cursor:pointer;
+margin:5px;
+transition:0.3s;
+}
+
+.candle:hover{
+transform:scale(1.3);
+}
+
+/* spark */
+
+.spark{
+position:absolute;
+width:8px;
+height:8px;
+background:yellow;
+border-radius:50%;
+animation:spark 1s forwards;
+}
+
+@keyframes spark{
+0%{opacity:1;transform:translateY(0)}
+100%{opacity:0;transform:translateY(-40px)}
+}
+
+/* final */
+
+#final{
+display:none;
+font-size:70px;
+color:#ff7eb9;
+text-shadow:0 0 20px white;
+font-weight:bold;
+}
+
+/* confetti */
 
 .confetti{
-    position:absolute;
-    width:10px;
-    height:10px;
-    background:white;
-    animation:confeti 5s linear infinite;
+position:absolute;
+width:10px;
+height:10px;
+animation:fall 4s linear;
 }
 
-@keyframes confeti{
-    0%{ transform:translateY(-10vh) rotate(0deg);}
-    100%{ transform:translateY(110vh) rotate(360deg);}
+@keyframes fall{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>🎉 Feliz Cumpleaños 🎉</h1>
-    <p>Que este día esté lleno de alegría, amor y muchos sueños cumplidos.</p>
-    <div class="cake">🎂</div>
+<div id="terminal"></div>
+
+<button id="startBtn">Click on me</button>
+
+<div id="balloons">
+<div class="balloon b1" onclick="openScroll(0)"></div>
+<div class="balloon b2" onclick="openScroll(1)"></div>
+<div class="balloon b3" onclick="openScroll(2)"></div>
+<div class="balloon b4" onclick="openScroll(3)"></div>
+<div class="balloon b5" onclick="openScroll(4)"></div>
 </div>
 
-<!-- Globos -->
-<div class="balloon b1"></div>
-<div class="balloon b2"></div>
-<div class="balloon b3"></div>
-<div class="balloon b4"></div>
-<div class="balloon b5"></div>
-<div class="balloon b6"></div>
+<div id="scroll">
+<p id="scrollText"></p>
+<button onclick="closeScroll()">Continue</button>
+</div>
 
-<!-- Confeti -->
+<div id="cakeArea">
+
+<div id="cake">🎂</div>
+
+<div>
+<span class="candle" onclick="blow(this)">🕯</span>
+<span class="candle" onclick="blow(this)">🕯</span>
+<span class="candle" onclick="blow(this)">🕯</span>
+<span class="candle" onclick="blow(this)">🕯</span>
+<span class="candle" onclick="blow(this)">🕯</span>
+</div>
+
+</div>
+
+<div id="final">🎉 HAPPY BIRTHDAY 🎉</div>
+
 <script>
-for(let i=0;i<80;i++){
-    let confeti=document.createElement("div");
-    confeti.className="confetti";
-    confeti.style.left=Math.random()*100+"%";
-    confeti.style.animationDuration=(Math.random()*3+3)+"s";
-    confeti.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
-    document.body.appendChild(confeti);
+
+/* typing code */
+
+const text=`<html>
+<head>
+<title>Birthday</title>
+</head>
+
+<body>
+
+<h1>Happy Birthday</h1>
+
+</body>
+</html>`;
+
+let i=0;
+
+function type(){
+
+if(i<text.length){
+document.getElementById("terminal").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,35);
 }
+else{
+document.getElementById("startBtn").style.display="block";
+}
+
+}
+
+type();
+
+/* start button */
+
+document.getElementById("startBtn").onclick=()=>{
+
+document.body.style.background="linear-gradient(135deg,#ffd6ec,#ffe8cc,#e0f7ff)";
+
+document.getElementById("startBtn").style.display="none";
+document.getElementById("terminal").style.display="none";
+
+let balloons=document.getElementById("balloons");
+balloons.style.display="block";
+
+setTimeout(()=>{
+balloons.style.bottom="0px";
+},50);
+
+}
+
+/* balloon messages */
+
+const messages=[
+"You are amazing 💖",
+"Never stop smiling 😊",
+"Dream big and shine ✨",
+"You deserve happiness 🌸",
+"Have a magical birthday 🎉"
+];
+
+let currentBalloon;
+
+function openScroll(i){
+
+currentBalloon=i;
+document.getElementById("scrollText").innerText=messages[i];
+document.getElementById("scroll").style.display="block";
+
+}
+
+function closeScroll(){
+
+document.getElementById("scroll").style.display="none";
+
+let balloons=document.querySelectorAll(".balloon");
+
+balloons[currentBalloon].innerHTML="💥";
+balloons[currentBalloon].onclick=null;
+
+if(currentBalloon===4){
+
+setTimeout(()=>{
+
+document.getElementById("balloons").style.display="none";
+document.getElementById("cakeArea").style.display="flex";
+
+},700);
+
+}
+
+}
+
+/* candles */
+
+let candles=5;
+
+function blow(c){
+
+if(c.innerHTML==="💨") return;
+
+c.innerHTML="💨";
+candles--;
+
+for(let i=0;i<8;i++){
+
+let spark=document.createElement("div");
+spark.className="spark";
+
+spark.style.left=(Math.random()*window.innerWidth)+"px";
+spark.style.top=(Math.random()*window.innerHeight)+"px";
+
+document.body.appendChild(spark);
+
+setTimeout(()=>spark.remove(),1000);
+
+}
+
+if(candles===0){
+showFinal();
+}
+
+}
+
+/* final */
+
+function showFinal(){
+
+document.getElementById("cakeArea").style.display="none";
+document.getElementById("final").style.display="block";
+
+for(let i=0;i<120;i++){
+
+let conf=document.createElement("div");
+
+conf.className="confetti";
+conf.style.left=Math.random()*100+"%";
+conf.style.background="hsl("+Math.random()*360+",100%,70%)";
+
+document.body.appendChild(conf);
+
+setTimeout(()=>conf.remove(),4000);
+
+}
+
+}
+
 </script>
 
 </body>
