@@ -54,10 +54,12 @@ display:none;
 #balloons{
 display:none;
 position:absolute;
-bottom:-200px;
+top:50%;
+left:0;
 width:100%;
-height:100%;
-transition:2s;
+transform:translateY(-50%);
+height:300px;
+pointer-events:auto;
 }
 
 .balloon{
@@ -66,22 +68,27 @@ height:120px;
 border-radius:50%;
 position:absolute;
 cursor:pointer;
-animation:float 5s ease-in-out infinite;
+animation:float 4s ease-in-out infinite;
+display:flex;
+align-items:center;
+justify-content:center;
 }
+
+/* balloon string */
 
 .balloon::after{
 content:"";
 position:absolute;
 width:2px;
 height:120px;
-background:#444;
-top:110px;
+background:#555;
+top:120px;
 left:50%;
 }
 
 @keyframes float{
 0%{transform:translateY(0)}
-50%{transform:translateY(-30px)}
+50%{transform:translateY(-25px)}
 100%{transform:translateY(0)}
 }
 
@@ -91,7 +98,7 @@ left:50%;
 .b4{background:#b36bff;left:70%}
 .b5{background:#ff9ecf;left:85%}
 
-/* parchment */
+/* scroll */
 
 #scroll{
 display:none;
@@ -217,7 +224,7 @@ animation:floatDecor linear infinite;
 
 <script>
 
-/* intro typing */
+/* intro text */
 
 const text=`Preparing something special...
 
@@ -253,8 +260,6 @@ startBtn.style.display="none";
 terminal.style.display="none";
 
 balloons.style.display="block";
-
-setTimeout(()=>balloons.style.bottom="0px",50);
 
 }
 
@@ -314,7 +319,7 @@ showFinal();
 
 }
 
-/* final screen */
+/* final */
 
 function showFinal(){
 
