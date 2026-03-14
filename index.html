@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Birthday Surprise</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 <style>
 
 body{
@@ -22,8 +24,8 @@ transition:1s;
 /* terminal */
 
 #terminal{
-width:600px;
-height:220px;
+width:650px;
+height:240px;
 background:#020617;
 padding:20px;
 border-radius:10px;
@@ -55,7 +57,6 @@ position:absolute;
 bottom:-200px;
 width:100%;
 height:100%;
-pointer-events:none;
 transition:2s;
 }
 
@@ -63,15 +64,23 @@ transition:2s;
 width:100px;
 height:120px;
 border-radius:50%;
+position:absolute;
+animation:float 5s ease-in-out infinite;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
+}
+
+/* balloon strings */
+
+.balloon::after{
+content:"";
 position:absolute;
-bottom:0;
-animation:float 5s ease-in-out infinite;
-box-shadow:0 10px 20px rgba(0,0,0,0.4);
-pointer-events:auto;
+width:2px;
+height:120px;
+background:#555;
+top:110px;
 }
 
 @keyframes float{
@@ -107,16 +116,6 @@ from{transform:scale(0)}
 to{transform:scale(1)}
 }
 
-#scroll button{
-margin-top:20px;
-padding:10px 20px;
-border:none;
-background:#ff4fa3;
-color:white;
-border-radius:8px;
-cursor:pointer;
-}
-
 /* cake */
 
 #cakeArea{
@@ -133,51 +132,50 @@ font-size:120px;
 font-size:35px;
 cursor:pointer;
 margin:5px;
-transition:0.3s;
 }
 
-.candle:hover{
-transform:scale(1.3);
-}
-
-/* spark */
-
-.spark{
-position:absolute;
-width:8px;
-height:8px;
-background:yellow;
-border-radius:50%;
-animation:spark 1s forwards;
-}
-
-@keyframes spark{
-0%{opacity:1;transform:translateY(0)}
-100%{opacity:0;transform:translateY(-40px)}
-}
-
-/* final */
+/* final message */
 
 #final{
 display:none;
-font-size:70px;
+font-size:90px;
 color:#ff7eb9;
+font-family:'Great Vibes',cursive;
 text-shadow:0 0 20px white;
-font-weight:bold;
+opacity:0;
+animation:fadeIn 5s forwards;
+}
+
+@keyframes fadeIn{
+0%{opacity:0; transform:scale(0.8)}
+100%{opacity:1; transform:scale(1)}
 }
 
 /* confetti */
 
 .confetti{
 position:absolute;
-width:10px;
-height:10px;
-animation:fall 4s linear;
+width:12px;
+height:12px;
+animation:fall linear forwards;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh)}
-100%{transform:translateY(110vh)}
+0%{transform:translateY(-10vh) rotate(0deg)}
+100%{transform:translateY(110vh) rotate(720deg)}
+}
+
+/* floating decorations */
+
+.decoration{
+position:absolute;
+font-size:40px;
+animation:floatDecor 10s infinite linear;
+}
+
+@keyframes floatDecor{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-120vh)}
 }
 
 </style>
@@ -216,23 +214,19 @@ animation:fall 4s linear;
 
 </div>
 
-<div id="final">🎉 HAPPY BIRTHDAY 🎉</div>
+<div id="final">Happy Birthday</div>
 
 <script>
 
-/* typing code */
+/* intro typing */
 
-const text=`<html>
-<head>
-<title>Birthday</title>
-</head>
+const text=`Preparing a small surprise...
 
-<body>
+Loading happiness...
+Loading music...
+Loading love...
 
-<h1>Happy Birthday</h1>
-
-</body>
-</html>`;
+Everything is ready ✨`;
 
 let i=0;
 
@@ -251,7 +245,7 @@ document.getElementById("startBtn").style.display="block";
 
 type();
 
-/* start button */
+/* start */
 
 document.getElementById("startBtn").onclick=()=>{
 
@@ -263,9 +257,7 @@ document.getElementById("terminal").style.display="none";
 let balloons=document.getElementById("balloons");
 balloons.style.display="block";
 
-setTimeout(()=>{
-balloons.style.bottom="0px";
-},50);
+setTimeout(()=>{balloons.style.bottom="0px";},50);
 
 }
 
@@ -276,17 +268,15 @@ const messages=[
 "Never stop smiling 😊",
 "Dream big and shine ✨",
 "You deserve happiness 🌸",
-"Have a magical birthday 🎉"
+"Make a wish before the cake 🎂"
 ];
 
 let currentBalloon;
 
 function openScroll(i){
-
 currentBalloon=i;
 document.getElementById("scrollText").innerText=messages[i];
 document.getElementById("scroll").style.display="block";
-
 }
 
 function closeScroll(){
@@ -294,17 +284,14 @@ function closeScroll(){
 document.getElementById("scroll").style.display="none";
 
 let balloons=document.querySelectorAll(".balloon");
-
 balloons[currentBalloon].innerHTML="💥";
 balloons[currentBalloon].onclick=null;
 
 if(currentBalloon===4){
 
 setTimeout(()=>{
-
 document.getElementById("balloons").style.display="none";
 document.getElementById("cakeArea").style.display="flex";
-
 },700);
 
 }
@@ -322,44 +309,58 @@ if(c.innerHTML==="💨") return;
 c.innerHTML="💨";
 candles--;
 
-for(let i=0;i<8;i++){
-
-let spark=document.createElement("div");
-spark.className="spark";
-
-spark.style.left=(Math.random()*window.innerWidth)+"px";
-spark.style.top=(Math.random()*window.innerHeight)+"px";
-
-document.body.appendChild(spark);
-
-setTimeout(()=>spark.remove(),1000);
-
-}
-
 if(candles===0){
 showFinal();
 }
 
 }
 
-/* final */
+/* final screen */
 
 function showFinal(){
 
 document.getElementById("cakeArea").style.display="none";
 document.getElementById("final").style.display="block";
 
-for(let i=0;i<120;i++){
+/* confetti */
+
+for(let i=0;i<200;i++){
 
 let conf=document.createElement("div");
-
 conf.className="confetti";
+
 conf.style.left=Math.random()*100+"%";
-conf.style.background="hsl("+Math.random()*360+",100%,70%)";
+conf.style.background="hsl("+Math.random()*360+",100%,60%)";
+conf.style.animationDuration=(Math.random()*3+3)+"s";
 
 document.body.appendChild(conf);
 
-setTimeout(()=>conf.remove(),4000);
+}
+
+/* decorations */
+
+const icons=[
+"🐶","🐕","💖","💗","💘",
+"🎵","🎶",
+"🌸","✨",
+"💿 Lana",
+"💿 Frank",
+"💿 SZA",
+"💿 Daniel"
+];
+
+for(let i=0;i<60;i++){
+
+let d=document.createElement("div");
+d.className="decoration";
+
+d.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+
+d.style.left=Math.random()*100+"%";
+d.style.animationDuration=(Math.random()*10+10)+"s";
+d.style.fontSize=(Math.random()*40+30)+"px";
+
+document.body.appendChild(d);
 
 }
 
