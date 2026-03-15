@@ -104,7 +104,7 @@ left:50%;
 .b4{background:#b36bff;left:70%}
 .b5{background:#ff9ecf;left:85%}
 
-/* scroll message */
+/* scroll */
 
 #scroll{
 display:none;
@@ -153,7 +153,18 @@ margin:5px;
 display:none;
 flex-direction:column;
 align-items:center;
+text-align:center;
 }
+
+/* sienna */
+
+#sienna{
+font-size:28px;
+line-height:28px;
+margin-bottom:20px;
+}
+
+/* happy */
 
 #happy{
 font-size:110px;
@@ -196,12 +207,18 @@ font-size:28px;
 box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-/* sienna hearts */
+/* popup decor */
 
-#sienna{
-display:none;
-margin-top:40px;
+.popup{
+position:absolute;
 font-size:40px;
+animation:pop 0.8s ease;
+}
+
+@keyframes pop{
+0%{transform:scale(0)}
+80%{transform:scale(1.2)}
+100%{transform:scale(1)}
 }
 
 /* confetti */
@@ -214,31 +231,6 @@ animation:fall linear forwards;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh)}
-100%{transform:translateY(110vh)}
-}
-
-/* decorations */
-
-.decor{
-position:absolute;
-animation:floatDecor linear infinite;
-}
-
-@keyframes floatDecor{
-0%{transform:translateY(110vh)}
-100%{transform:translateY(-120vh)}
-}
-
-/* flowers */
-
-.flower{
-position:absolute;
-font-size:30px;
-animation:flowerFall linear infinite;
-}
-
-@keyframes flowerFall{
 0%{transform:translateY(-10vh)}
 100%{transform:translateY(110vh)}
 }
@@ -282,6 +274,8 @@ animation:flowerFall linear infinite;
 
 <div id="final">
 
+<div id="sienna"></div>
+
 <div id="happy">Happy Birthday</div>
 
 <button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
@@ -295,11 +289,7 @@ May all your dreams come true.<br><br>
 Happy Birthday Sienna 💖
 </p>
 
-<button onclick="showSienna()">One more surprise</button>
-
 </div>
-
-<div id="sienna"></div>
 
 </div>
 
@@ -419,8 +409,8 @@ final.style.display="flex"
 letterBtn.style.display="block"
 
 createConfetti()
-createDecor()
-createFlowers()
+createPopups()
+createSienna()
 
 }
 
@@ -428,7 +418,7 @@ createFlowers()
 
 function createConfetti(){
 
-for(let i=0;i<220;i++){
+for(let i=0;i<200;i++){
 
 let conf=document.createElement("div")
 conf.className="confetti"
@@ -443,49 +433,61 @@ document.body.appendChild(conf)
 
 }
 
-/* decorations */
+/* popup icons */
 
-function createDecor(){
+function createPopups(){
 
-const icons=["💖","🎈","🎶","🐶","✨"]
+const icons=["💖","💜","💙","💛","🧡","❤️","💚","🩷","🌸","🌺","🎶","🎵","🐶","✨"]
 
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
 
-let d=document.createElement("div")
+let p=document.createElement("div")
 
-d.className="decor"
-d.innerHTML=icons[Math.floor(Math.random()*icons.length)]
+p.className="popup"
+p.innerHTML=icons[Math.floor(Math.random()*icons.length)]
 
-d.style.left=Math.random()*100+"%"
-d.style.fontSize=(Math.random()*40+30)+"px"
-d.style.animationDuration=(Math.random()*10+10)+"s"
+p.style.left=Math.random()*100+"%"
+p.style.top=Math.random()*100+"%"
 
-document.body.appendChild(d)
+setTimeout(()=>{
+document.body.appendChild(p)
+},i*120)
 
+}
+
+}
+
+/* SIENNA hearts */
+
+function createSienna(){
+
+const pattern=[
+"11100010001011110111010001",
+"10010010001010000100011001",
+"11100010001011100111010101",
+"10010010001010000100010011",
+"10010010001010000100010001",
+"11100001110011110111010001"
+]
+
+const hearts=["💖","💜","💙","💛","🧡","❤️","💚","🩷"]
+
+pattern.forEach(row=>{
+let line=document.createElement("div")
+
+for(let c of row){
+
+if(c==="1"){
+line.innerHTML+=hearts[Math.floor(Math.random()*hearts.length)]
+}else{
+line.innerHTML+="&nbsp;"
 }
 
 }
 
-/* flowers */
+sienna.appendChild(line)
 
-function createFlowers(){
-
-const flowers=["🌸","🌺","🌼","💮"]
-
-for(let i=0;i<40;i++){
-
-let f=document.createElement("div")
-
-f.className="flower"
-f.innerHTML=flowers[Math.floor(Math.random()*flowers.length)]
-
-f.style.left=Math.random()*100+"%"
-f.style.fontSize=(Math.random()*25+25)+"px"
-f.style.animationDuration=(Math.random()*8+6)+"s"
-
-document.body.appendChild(f)
-
-}
+})
 
 }
 
@@ -495,58 +497,6 @@ function openLetter(){
 
 letterBtn.style.display="none"
 letter.style.display="block"
-
-}
-
-/* animated hearts forming SIENNA */
-
-function showSienna(){
-
-letter.style.display="none"
-
-const pattern=[
-"01110 10001 11110 11110 10001 10001",
-"10001 10001 10001 10001 11001 11001",
-"10000 10001 11110 11110 10101 10101",
-"10000 10001 10001 10001 10011 10011",
-"10001 10001 10001 10001 10001 10001",
-"01110 01110 11110 11110 10001 10001"
-]
-
-const colors=["💖","💜","💙","💛","🧡","❤️"]
-
-pattern.forEach((row,y)=>{
-
-[...row].forEach((col,x)=>{
-
-if(col==="1"){
-
-let heart=document.createElement("div")
-
-heart.innerHTML=colors[Math.floor(Math.random()*colors.length)]
-heart.style.position="absolute"
-
-heart.style.left=Math.random()*100+"%"
-heart.style.top="-50px"
-
-heart.style.fontSize="35px"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{
-
-heart.style.transition="2s"
-
-heart.style.left=(x*35+window.innerWidth/2-200)+"px"
-heart.style.top=(y*40+300)+"px"
-
-},50)
-
-}
-
-})
-
-})
 
 }
 
