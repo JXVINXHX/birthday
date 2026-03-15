@@ -21,8 +21,6 @@ overflow:hidden;
 transition:1s;
 }
 
-/* instructions */
-
 #instruction{
 position:absolute;
 top:40px;
@@ -32,8 +30,6 @@ color:white;
 text-shadow:0 0 15px pink;
 display:none;
 }
-
-/* terminal */
 
 #terminal{
 width:650px;
@@ -46,8 +42,6 @@ font-family:monospace;
 box-shadow:0 20px 40px rgba(0,0,0,0.6);
 overflow:auto;
 }
-
-/* button */
 
 #startBtn{
 margin-top:30px;
@@ -156,15 +150,7 @@ align-items:center;
 text-align:center;
 }
 
-/* sienna */
-
-#sienna{
-font-size:28px;
-line-height:28px;
-margin-bottom:20px;
-}
-
-/* happy */
+/* happy birthday */
 
 #happy{
 font-size:110px;
@@ -207,18 +193,37 @@ font-size:28px;
 box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-/* popup decor */
+/* sienna lettering */
 
-.popup{
-position:absolute;
-font-size:40px;
-animation:pop 0.8s ease;
+#sienna{
+margin-top:40px;
+display:none;
 }
 
-@keyframes pop{
-0%{transform:scale(0)}
-80%{transform:scale(1.2)}
-100%{transform:scale(1)}
+#sienna svg{
+width:600px;
+}
+
+.letter{
+fill:none;
+stroke:#ff4fa3;
+stroke-width:6;
+stroke-linecap:round;
+stroke-linejoin:round;
+stroke-dasharray:400;
+stroke-dashoffset:400;
+animation:draw 3s forwards;
+}
+
+.letter:nth-child(1){animation-delay:0.5s;}
+.letter:nth-child(2){animation-delay:1s;}
+.letter:nth-child(3){animation-delay:1.5s;}
+.letter:nth-child(4){animation-delay:2s;}
+.letter:nth-child(5){animation-delay:2.5s;}
+.letter:nth-child(6){animation-delay:3s;}
+
+@keyframes draw{
+to{stroke-dashoffset:0;}
 }
 
 /* confetti */
@@ -227,12 +232,12 @@ animation:pop 0.8s ease;
 position:absolute;
 width:12px;
 height:12px;
+top:-10px;
 animation:fall linear forwards;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh)}
-100%{transform:translateY(110vh)}
+to{transform:translateY(110vh);}
 }
 
 </style>
@@ -274,8 +279,6 @@ animation:fall linear forwards;
 
 <div id="final">
 
-<div id="sienna"></div>
-
 <div id="happy">Happy Birthday</div>
 
 <button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
@@ -288,6 +291,21 @@ You are amazing and deserve happiness.<br>
 May all your dreams come true.<br><br>
 Happy Birthday Sienna 💖
 </p>
+
+</div>
+
+<div id="sienna">
+
+<svg viewBox="0 0 600 120">
+
+<path d="M30 80 C10 40 120 40 90 80 C60 120 160 120 130 80" class="letter"/>
+<path d="M170 110 L170 30" class="letter"/>
+<path d="M220 110 L220 30 L270 110 L270 30" class="letter"/>
+<path d="M310 110 L310 30 L360 110 L360 30" class="letter"/>
+<path d="M400 30 L400 110 L450 110" class="letter"/>
+<path d="M480 110 L480 30 L530 110 L530 30" class="letter"/>
+
+</svg>
 
 </div>
 
@@ -340,8 +358,6 @@ instruction.style.display="block"
 
 }
 
-/* balloons */
-
 const messages=[
 "You are amazing 💖",
 "Never stop smiling 😊",
@@ -380,8 +396,6 @@ cakeArea.style.display="flex"
 
 }
 
-/* candles */
-
 let candles=5
 
 function blow(c){
@@ -397,8 +411,6 @@ showFinal()
 
 }
 
-/* final */
-
 function showFinal(){
 
 instruction.style.display="none"
@@ -408,17 +420,13 @@ final.style.display="flex"
 
 letterBtn.style.display="block"
 
-createConfetti()
-createPopups()
-createSienna()
+startConfetti()
 
 }
 
-/* confetti */
+function startConfetti(){
 
-function createConfetti(){
-
-for(let i=0;i<200;i++){
+setInterval(()=>{
 
 let conf=document.createElement("div")
 conf.className="confetti"
@@ -429,74 +437,22 @@ conf.style.animationDuration=(Math.random()*3+3)+"s"
 
 document.body.appendChild(conf)
 
-}
-
-}
-
-/* popup icons */
-
-function createPopups(){
-
-const icons=["💖","💜","💙","💛","🧡","❤️","💚","🩷","🌸","🌺","🎶","🎵","🐶","✨"]
-
-for(let i=0;i<50;i++){
-
-let p=document.createElement("div")
-
-p.className="popup"
-p.innerHTML=icons[Math.floor(Math.random()*icons.length)]
-
-p.style.left=Math.random()*100+"%"
-p.style.top=Math.random()*100+"%"
-
 setTimeout(()=>{
-document.body.appendChild(p)
-},i*120)
+conf.remove()
+},6000)
+
+},120)
 
 }
-
-}
-
-/* SIENNA hearts */
-
-function createSienna(){
-
-const pattern=[
-"11100010001011110111010001",
-"10010010001010000100011001",
-"11100010001011100111010101",
-"10010010001010000100010011",
-"10010010001010000100010001",
-"11100001110011110111010001"
-]
-
-const hearts=["💖","💜","💙","💛","🧡","❤️","💚","🩷"]
-
-pattern.forEach(row=>{
-let line=document.createElement("div")
-
-for(let c of row){
-
-if(c==="1"){
-line.innerHTML+=hearts[Math.floor(Math.random()*hearts.length)]
-}else{
-line.innerHTML+="&nbsp;"
-}
-
-}
-
-sienna.appendChild(line)
-
-})
-
-}
-
-/* letter */
 
 function openLetter(){
 
 letterBtn.style.display="none"
 letter.style.display="block"
+
+setTimeout(()=>{
+sienna.style.display="block"
+},1500)
 
 }
 
