@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +22,8 @@ overflow:hidden;
 transition:1s;
 }
 
+/* instructions */
+
 #instruction{
 position:absolute;
 top:40px;
@@ -30,6 +33,8 @@ color:white;
 text-shadow:0 0 15px pink;
 display:none;
 }
+
+/* terminal */
 
 #terminal{
 width:650px;
@@ -42,6 +47,8 @@ font-family:monospace;
 box-shadow:0 20px 40px rgba(0,0,0,0.6);
 overflow:auto;
 }
+
+/* button */
 
 #startBtn{
 margin-top:30px;
@@ -133,12 +140,37 @@ align-items:center;
 
 #cake{
 font-size:120px;
+margin-bottom:10px;
 }
 
+/* candles */
+
 .candle{
-font-size:35px;
-cursor:pointer;
+width:14px;
+height:40px;
+background:linear-gradient(#fff,#ffd);
+border-radius:4px;
 margin:5px;
+display:inline-block;
+position:relative;
+cursor:pointer;
+}
+
+.flame{
+position:absolute;
+top:-15px;
+left:50%;
+transform:translateX(-50%);
+width:12px;
+height:18px;
+background:radial-gradient(circle,#fff 10%,#ffd000 40%,#ff6b00 70%);
+border-radius:50%;
+animation:flicker 0.15s infinite alternate;
+}
+
+@keyframes flicker{
+0%{transform:translateX(-50%) scale(1)}
+100%{transform:translateX(-50%) scale(1.2)}
 }
 
 /* final */
@@ -150,10 +182,10 @@ align-items:center;
 text-align:center;
 }
 
-/* happy birthday */
+/* happy */
 
 #happy{
-font-size:110px;
+font-size:100px;
 font-family:'Pacifico',cursive;
 background:linear-gradient(45deg,#ff7eb9,#ffb347,#7efff5,#ff6b6b);
 -webkit-background-clip:text;
@@ -189,41 +221,36 @@ border-radius:12px;
 width:420px;
 text-align:center;
 font-family:'Great Vibes',cursive;
-font-size:28px;
+font-size:30px;
 box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
 /* sienna lettering */
 
 #sienna{
+font-family:'Great Vibes',cursive;
+font-size:120px;
+color:#ff4fa3;
 margin-top:40px;
 display:none;
+letter-spacing:8px;
 }
 
-#sienna svg{
-width:600px;
+.draw{
+opacity:0;
+animation:write 0.8s forwards;
 }
 
-.letter{
-fill:none;
-stroke:#ff4fa3;
-stroke-width:6;
-stroke-linecap:round;
-stroke-linejoin:round;
-stroke-dasharray:400;
-stroke-dashoffset:400;
-animation:draw 3s forwards;
-}
+.draw:nth-child(1){animation-delay:0.3s}
+.draw:nth-child(2){animation-delay:0.6s}
+.draw:nth-child(3){animation-delay:0.9s}
+.draw:nth-child(4){animation-delay:1.2s}
+.draw:nth-child(5){animation-delay:1.5s}
+.draw:nth-child(6){animation-delay:1.8s}
 
-.letter:nth-child(1){animation-delay:0.5s;}
-.letter:nth-child(2){animation-delay:1s;}
-.letter:nth-child(3){animation-delay:1.5s;}
-.letter:nth-child(4){animation-delay:2s;}
-.letter:nth-child(5){animation-delay:2.5s;}
-.letter:nth-child(6){animation-delay:3s;}
-
-@keyframes draw{
-to{stroke-dashoffset:0;}
+@keyframes write{
+0%{opacity:0;transform:translateY(40px)}
+100%{opacity:1;transform:translateY(0)}
 }
 
 /* confetti */
@@ -251,11 +278,11 @@ to{transform:translateY(110vh);}
 <button id="startBtn">Click on me</button>
 
 <div id="balloons">
-<div class="balloon b1" onclick="openScroll(0)"></div>
-<div class="balloon b2" onclick="openScroll(1)"></div>
-<div class="balloon b3" onclick="openScroll(2)"></div>
-<div class="balloon b4" onclick="openScroll(3)"></div>
-<div class="balloon b5" onclick="openScroll(4)"></div>
+<div class="balloon b1" onclick="popBalloon(this,0)"></div>
+<div class="balloon b2" onclick="popBalloon(this,1)"></div>
+<div class="balloon b3" onclick="popBalloon(this,2)"></div>
+<div class="balloon b4" onclick="popBalloon(this,3)"></div>
+<div class="balloon b5" onclick="popBalloon(this,4)"></div>
 </div>
 
 <div id="scroll">
@@ -268,11 +295,11 @@ to{transform:translateY(110vh);}
 <div id="cake">🎂</div>
 
 <div>
-<span class="candle" onclick="blow(this)">🕯</span>
-<span class="candle" onclick="blow(this)">🕯</span>
-<span class="candle" onclick="blow(this)">🕯</span>
-<span class="candle" onclick="blow(this)">🕯</span>
-<span class="candle" onclick="blow(this)">🕯</span>
+<div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+<div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+<div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+<div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+<div class="candle" onclick="blow(this)"><div class="flame"></div></div>
 </div>
 
 </div>
@@ -284,29 +311,19 @@ to{transform:translateY(110vh);}
 <button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
 
 <div id="letter">
-
-<p>
 Today is a special day ✨<br><br>
 You are amazing and deserve happiness.<br>
 May all your dreams come true.<br><br>
 Happy Birthday Sienna 💖
-</p>
-
 </div>
 
 <div id="sienna">
-
-<svg viewBox="0 0 600 120">
-
-<path d="M30 80 C10 40 120 40 90 80 C60 120 160 120 130 80" class="letter"/>
-<path d="M170 110 L170 30" class="letter"/>
-<path d="M220 110 L220 30 L270 110 L270 30" class="letter"/>
-<path d="M310 110 L310 30 L360 110 L360 30" class="letter"/>
-<path d="M400 30 L400 110 L450 110" class="letter"/>
-<path d="M480 110 L480 30 L530 110 L530 30" class="letter"/>
-
-</svg>
-
+<span class="draw">S</span>
+<span class="draw">I</span>
+<span class="draw">E</span>
+<span class="draw">N</span>
+<span class="draw">N</span>
+<span class="draw">A</span>
 </div>
 
 </div>
@@ -369,17 +386,19 @@ const messages=[
 let popped=0
 let currentBalloon
 
-function openScroll(i){
+function popBalloon(el,i){
+
 currentBalloon=i
 scrollText.innerText=messages[i]
 scroll.style.display="block"
+
+el.style.visibility="hidden"
+
 }
 
 function closeScroll(){
 
 scroll.style.display="none"
-
-document.querySelectorAll(".balloon")[currentBalloon].innerHTML="💥"
 
 popped++
 
@@ -400,9 +419,11 @@ let candles=5
 
 function blow(c){
 
-if(c.innerHTML==="💨") return
+if(c.classList.contains("off")) return
 
-c.innerHTML="💨"
+c.classList.add("off")
+c.querySelector(".flame").style.display="none"
+
 candles--
 
 if(candles===0){
@@ -452,7 +473,7 @@ letter.style.display="block"
 
 setTimeout(()=>{
 sienna.style.display="block"
-},1500)
+},1200)
 
 }
 
@@ -460,3 +481,4 @@ sienna.style.display="block"
 
 </body>
 </html>
+```
