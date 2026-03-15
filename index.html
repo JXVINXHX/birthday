@@ -8,6 +8,10 @@
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 height:100vh;
@@ -21,6 +25,8 @@ overflow:hidden;
 color:white;
 text-align:center;
 }
+
+/* TITLES */
 
 h1{
 font-family:'Great Vibes',cursive;
@@ -36,7 +42,7 @@ text-shadow:
 #instruction{
 margin-top:10px;
 font-size:18px;
-opacity:.8;
+opacity:.85;
 }
 
 /* SKY */
@@ -63,6 +69,33 @@ animation:twinkle 3s infinite alternate;
 @keyframes twinkle{
 0%{opacity:.2}
 100%{opacity:1}
+}
+
+/* CONSTELLATION */
+
+.constellation{
+position:absolute;
+top:15%;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
+}
+
+.letter{
+display:grid;
+grid-template-columns:repeat(3,10px);
+grid-template-rows:repeat(5,10px);
+gap:8px;
+}
+
+.dot{
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 10px white;
+animation:twinkle 2s infinite alternate;
 }
 
 /* CAKE */
@@ -131,6 +164,7 @@ white 4px,
 #ff4fa3 8px
 );
 position:relative;
+cursor:pointer;
 }
 
 .flame{
@@ -173,7 +207,7 @@ animation:smoke 1s forwards;
 
 #balloons{
 position:absolute;
-bottom:-150px;
+bottom:-140px;
 width:100%;
 display:flex;
 justify-content:center;
@@ -211,32 +245,6 @@ left:50%;
 100%{transform:translateY(0)}
 }
 
-/* CONSTELLATION */
-
-.constellation{
-position:absolute;
-top:15%;
-width:100%;
-display:flex;
-justify-content:center;
-gap:40px;
-}
-
-.letter{
-display:grid;
-grid-template-columns:repeat(5,10px);
-gap:8px;
-}
-
-.dot{
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-box-shadow:0 0 10px white;
-animation:twinkle 2s infinite alternate;
-}
-
 </style>
 </head>
 
@@ -248,10 +256,8 @@ animation:twinkle 2s infinite alternate;
 <h1>Sienna</h1>
 <div id="instruction">Pop the balloons 🎈</div>
 
-<!-- CONSTELLATION -->
 <div class="constellation" id="constellation"></div>
 
-<!-- CAKE -->
 <div id="cake">
 
 <div id="candles"></div>
@@ -262,7 +268,6 @@ animation:twinkle 2s infinite alternate;
 
 </div>
 
-<!-- BALLOONS -->
 <div id="balloons">
 <div class="balloon"></div>
 <div class="balloon"></div>
@@ -273,7 +278,9 @@ animation:twinkle 2s infinite alternate;
 
 <script>
 
-/* STARS */
+/* SKY STARS */
+
+const sky=document.getElementById("sky")
 
 for(let i=0;i<120;i++){
 let star=document.createElement("div")
@@ -287,8 +294,10 @@ sky.appendChild(star)
 /* CANDLES */
 
 const candles=document.getElementById("candles")
+let candlesOut=0
 
 for(let i=0;i<5;i++){
+
 let c=document.createElement("div")
 c.className="candle"
 
@@ -298,15 +307,28 @@ f.className="flame"
 c.appendChild(f)
 
 c.onclick=()=>{
-if(f){
+
+if(f.parentNode){
+
 let smoke=document.createElement("div")
 smoke.className="smoke"
+
 c.appendChild(smoke)
+
 f.remove()
+
+candlesOut++
+
+if(candlesOut===5){
+instruction.innerText="🎉 Happy Birthday Sienna!"
 }
+
+}
+
 }
 
 candles.appendChild(c)
+
 }
 
 /* BALLOONS */
@@ -315,14 +337,18 @@ let balloons=document.querySelectorAll(".balloon")
 let popped=0
 
 balloons.forEach(b=>{
+
 b.onclick=()=>{
+
 b.style.display="none"
 popped++
 
 if(popped===5){
 instruction.innerText="Blow out the candles 🕯"
 }
+
 }
+
 })
 
 /* CONSTELLATION SINNA */
@@ -335,14 +361,15 @@ A:[[1,0],[0,1],[2,1],[0,2],[1,2],[2,2],[0,3],[2,3],[0,4],[2,4]]
 }
 
 const name="SINNA"
-
 const container=document.getElementById("constellation")
 
 name.split("").forEach(l=>{
+
 let grid=document.createElement("div")
 grid.className="letter"
 
 for(let r=0;r<5;r++){
+
 for(let c=0;c<3;c++){
 
 let dot=document.createElement("div")
@@ -354,9 +381,11 @@ dot.className="dot"
 grid.appendChild(dot)
 
 }
+
 }
 
 container.appendChild(grid)
+
 })
 
 </script>
