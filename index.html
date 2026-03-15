@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,44 +10,54 @@
 
 body{
 margin:0;
-background:black;
-font-family:Arial;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
 height:100vh;
 overflow:hidden;
-transition:1s;
-}
-
-/* instructions */
-
-#instruction{
-position:absolute;
-top:40px;
-font-size:32px;
-font-family:'Pacifico',cursive;
+font-family:Arial;
+background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
 color:white;
-text-shadow:0 0 15px pink;
-display:none;
 }
 
-/* terminal */
+/* SKY */
+
+#sky{
+position:absolute;
+width:100%;
+height:100%;
+background:radial-gradient(circle at bottom,#001,#000 70%);
+overflow:hidden;
+z-index:-1;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:.2}
+to{opacity:1}
+}
+
+/* TERMINAL */
 
 #terminal{
-width:650px;
-height:240px;
+width:600px;
+height:200px;
 background:#020617;
 padding:20px;
 border-radius:10px;
 color:#00ff9c;
 font-family:monospace;
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
+box-shadow:0 20px 40px rgba(0,0,0,.7);
 overflow:auto;
 }
-
-/* button */
 
 #startBtn{
 margin-top:30px;
@@ -62,40 +71,39 @@ cursor:pointer;
 display:none;
 }
 
-/* balloons */
+/* BALLOONS */
 
 #balloons{
 display:none;
 position:absolute;
 top:50%;
-left:0;
 width:100%;
 transform:translateY(-50%);
-height:300px;
 }
 
 .balloon{
-width:100px;
-height:120px;
+width:90px;
+height:110px;
 border-radius:50%;
 position:absolute;
 cursor:pointer;
 animation:float 4s ease-in-out infinite;
+box-shadow:inset -10px -20px 40px rgba(0,0,0,.3);
 }
 
 .balloon::after{
 content:"";
 position:absolute;
 width:2px;
-height:120px;
-background:#555;
-top:120px;
+height:100px;
+background:#aaa;
+top:110px;
 left:50%;
 }
 
 @keyframes float{
 0%{transform:translateY(0)}
-50%{transform:translateY(-25px)}
+50%{transform:translateY(-20px)}
 100%{transform:translateY(0)}
 }
 
@@ -105,7 +113,7 @@ left:50%;
 .b4{background:#b36bff;left:70%}
 .b5{background:#ff9ecf;left:85%}
 
-/* scroll */
+/* SCROLL */
 
 #scroll{
 display:none;
@@ -115,6 +123,7 @@ padding:30px;
 border-radius:10px;
 width:420px;
 text-align:center;
+color:black;
 box-shadow:0 20px 40px rgba(0,0,0,0.4);
 border:4px solid #d2b48c;
 font-family:Georgia;
@@ -130,7 +139,7 @@ border-radius:8px;
 cursor:pointer;
 }
 
-/* cake */
+/* CAKE */
 
 #cakeArea{
 display:none;
@@ -139,11 +148,10 @@ align-items:center;
 }
 
 #cake{
-font-size:120px;
-margin-bottom:10px;
+font-size:130px;
 }
 
-/* candles */
+/* CANDLES */
 
 .candle{
 width:14px;
@@ -165,41 +173,32 @@ width:12px;
 height:18px;
 background:radial-gradient(circle,#fff 10%,#ffd000 40%,#ff6b00 70%);
 border-radius:50%;
-animation:flicker 0.15s infinite alternate;
+animation:flicker .15s infinite alternate;
 }
 
 @keyframes flicker{
 0%{transform:translateX(-50%) scale(1)}
-100%{transform:translateX(-50%) scale(1.2)}
+100%{transform:translateX(-50%) scale(1.25)}
 }
 
-/* final */
+/* FINAL */
 
 #final{
 display:none;
 flex-direction:column;
 align-items:center;
-text-align:center;
 }
 
-/* happy */
-
 #happy{
-font-size:100px;
+font-size:90px;
 font-family:'Pacifico',cursive;
 background:linear-gradient(45deg,#ff7eb9,#ffb347,#7efff5,#ff6b6b);
 -webkit-background-clip:text;
 color:transparent;
 text-shadow:0 0 25px white;
-animation:fade 4s forwards;
 }
 
-@keyframes fade{
-0%{opacity:0;transform:scale(.6)}
-100%{opacity:1;transform:scale(1)}
-}
-
-/* letter */
+/* LETTER */
 
 #letterBtn{
 margin-top:30px;
@@ -221,44 +220,44 @@ border-radius:12px;
 width:420px;
 text-align:center;
 font-family:'Great Vibes',cursive;
-font-size:30px;
+font-size:32px;
+color:black;
 box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-/* sienna lettering */
+/* NAME */
 
 #sienna{
+display:none;
 font-family:'Great Vibes',cursive;
-font-size:120px;
+font-size:130px;
 color:#ff4fa3;
 margin-top:40px;
-display:none;
-letter-spacing:8px;
 }
 
 .draw{
 opacity:0;
-animation:write 0.8s forwards;
+animation:write .8s forwards;
 }
 
-.draw:nth-child(1){animation-delay:0.3s}
-.draw:nth-child(2){animation-delay:0.6s}
-.draw:nth-child(3){animation-delay:0.9s}
-.draw:nth-child(4){animation-delay:1.2s}
-.draw:nth-child(5){animation-delay:1.5s}
-.draw:nth-child(6){animation-delay:1.8s}
+.draw:nth-child(1){animation-delay:.2s}
+.draw:nth-child(2){animation-delay:.4s}
+.draw:nth-child(3){animation-delay:.6s}
+.draw:nth-child(4){animation-delay:.8s}
+.draw:nth-child(5){animation-delay:1s}
+.draw:nth-child(6){animation-delay:1.2s}
 
 @keyframes write{
 0%{opacity:0;transform:translateY(40px)}
 100%{opacity:1;transform:translateY(0)}
 }
 
-/* confetti */
+/* CONFETTI */
 
 .confetti{
 position:absolute;
-width:12px;
-height:12px;
+width:10px;
+height:10px;
 top:-10px;
 animation:fall linear forwards;
 }
@@ -272,7 +271,7 @@ to{transform:translateY(110vh);}
 
 <body>
 
-<div id="instruction"></div>
+<div id="sky"></div>
 
 <div id="terminal"></div>
 <button id="startBtn">Click on me</button>
@@ -330,17 +329,21 @@ Happy Birthday Sienna 💖
 
 <script>
 
+/* stars */
+
+for(let i=0;i<120;i++){
+let star=document.createElement("div")
+star.className="star"
+star.style.left=Math.random()*100+"%"
+star.style.top=Math.random()*100+"%"
+star.style.animationDuration=(Math.random()*3+2)+"s"
+document.getElementById("sky").appendChild(star)
+}
+
+/* terminal typing */
+
 const terminal=document.getElementById("terminal")
 const startBtn=document.getElementById("startBtn")
-const balloons=document.getElementById("balloons")
-const scroll=document.getElementById("scroll")
-const scrollText=document.getElementById("scrollText")
-const cakeArea=document.getElementById("cakeArea")
-const final=document.getElementById("final")
-const letterBtn=document.getElementById("letterBtn")
-const letter=document.getElementById("letter")
-const sienna=document.getElementById("sienna")
-const instruction=document.getElementById("instruction")
 
 const text=`Preparing something special...
 
@@ -363,17 +366,14 @@ type()
 
 startBtn.onclick=()=>{
 
-document.body.style.background="linear-gradient(135deg,#ffd6ec,#ffe8cc,#e0f7ff)"
-
 terminal.style.display="none"
 startBtn.style.display="none"
 
-balloons.style.display="block"
-
-instruction.innerText="Click the balloons 🎈"
-instruction.style.display="block"
+document.getElementById("balloons").style.display="block"
 
 }
+
+/* balloons */
 
 const messages=[
 "You are amazing 💖",
@@ -384,36 +384,34 @@ const messages=[
 ]
 
 let popped=0
-let currentBalloon
 
 function popBalloon(el,i){
 
-currentBalloon=i
-scrollText.innerText=messages[i]
-scroll.style.display="block"
+document.getElementById("scrollText").innerText=messages[i]
+document.getElementById("scroll").style.display="block"
 
-el.style.visibility="hidden"
+el.remove()
 
 }
 
 function closeScroll(){
 
-scroll.style.display="none"
+document.getElementById("scroll").style.display="none"
 
 popped++
 
 if(popped===5){
 
-instruction.innerText="Blow out the candles 🕯"
-
 setTimeout(()=>{
-balloons.style.display="none"
-cakeArea.style.display="flex"
+document.getElementById("balloons").style.display="none"
+document.getElementById("cakeArea").style.display="flex"
 },600)
 
 }
 
 }
+
+/* candles */
 
 let candles=5
 
@@ -434,16 +432,15 @@ showFinal()
 
 function showFinal(){
 
-instruction.style.display="none"
-
-cakeArea.style.display="none"
-final.style.display="flex"
-
-letterBtn.style.display="block"
+document.getElementById("cakeArea").style.display="none"
+document.getElementById("final").style.display="flex"
+document.getElementById("letterBtn").style.display="block"
 
 startConfetti()
 
 }
+
+/* confetti */
 
 function startConfetti(){
 
@@ -458,21 +455,21 @@ conf.style.animationDuration=(Math.random()*3+3)+"s"
 
 document.body.appendChild(conf)
 
-setTimeout(()=>{
-conf.remove()
-},6000)
+setTimeout(()=>conf.remove(),6000)
 
 },120)
 
 }
 
+/* letter */
+
 function openLetter(){
 
-letterBtn.style.display="none"
-letter.style.display="block"
+document.getElementById("letterBtn").style.display="none"
+document.getElementById("letter").style.display="block"
 
 setTimeout(()=>{
-sienna.style.display="block"
+document.getElementById("sienna").style.display="block"
 },1200)
 
 }
@@ -481,4 +478,3 @@ sienna.style.display="block"
 
 </body>
 </html>
-```
