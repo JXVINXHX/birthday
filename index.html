@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,14 +44,6 @@ animation:twinkle 2s infinite alternate;
 @keyframes twinkle{
 from{opacity:.3}
 to{opacity:1}
-}
-
-/* TITLE */
-
-#title{
-font-family:'Great Vibes';
-font-size:80px;
-text-shadow:0 0 20px #ff80bf;
 }
 
 /* INSTRUCTION */
@@ -107,6 +100,7 @@ position:absolute;
 cursor:pointer;
 animation:float 4s ease-in-out infinite;
 box-shadow:inset -10px -20px 40px rgba(0,0,0,.3);
+transition:opacity .6s;
 }
 
 .balloon::after{
@@ -324,22 +318,6 @@ animation:fall linear forwards;
 to{transform:translateY(110vh);}
 }
 
-/* CONSTELLATION */
-
-.const-star{
-position:absolute;
-width:5px;
-height:5px;
-background:white;
-border-radius:50%;
-opacity:0;
-animation:appear 1s forwards;
-}
-
-@keyframes appear{
-to{opacity:1}
-}
-
 </style>
 </head>
 
@@ -377,7 +355,7 @@ to{opacity:1}
 
 </div>
 
-<div id="blowText">Blow out the candles 🕯</div>
+<div id="blowText">Make a wish and blow out the candles 🕯</div>
 
 </div>
 
@@ -388,10 +366,13 @@ to{opacity:1}
 <button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
 
 <div id="letter">
-Today is a special day ✨<br><br>
-You deserve happiness.<br>
-May all your dreams come true.<br><br>
-Happy Birthday Sienna 💖
+On this special day I just wanted to remind you how wonderful you are.<br><br>
+
+May this year bring you laughter, beautiful moments, new adventures and dreams coming true.<br><br>
+
+Never forget how much light you bring to the people around you.<br><br>
+
+Happy Birthday Sienna ✨
 </div>
 
 </div>
@@ -448,19 +429,24 @@ instruction.innerText="Pop the balloons 🎈"
 /* BALLOONS */
 
 const messages=[
-"You are amazing 💖",
+"You make the world brighter ✨",
 "Never stop smiling 😊",
-"Dream big ✨",
-"You deserve happiness 🌸",
-"Make a wish 🎂"
+"Dream big and chase it 💫",
+"You deserve beautiful things 🌸",
+"Make a wish today 🎂"
 ]
 
 let popped=0
 
 function popBalloon(el,i){
+el.style.opacity=0
+
+setTimeout(()=>{
+el.remove()
+},600)
+
 document.getElementById("scrollText").innerText=messages[i]
 document.getElementById("scroll").style.display="block"
-el.remove()
 }
 
 function closeScroll(){
@@ -529,7 +515,6 @@ document.getElementById("cakeArea").style.display="none"
 document.getElementById("final").style.display="block"
 
 startConfetti()
-createConstellation()
 
 }
 
@@ -551,26 +536,6 @@ document.body.appendChild(conf)
 setTimeout(()=>conf.remove(),6000)
 
 },120)
-
-}
-
-/* CONSTELLATION SINNA */
-
-function createConstellation(){
-
-let stars=[[40,20],[43,23],[46,20],[49,23],[52,20],[55,23],[58,20],[61,23],[64,20]]
-
-stars.forEach((p,i)=>{
-
-let s=document.createElement("div")
-s.className="const-star"
-s.style.left=p[0]+"%"
-s.style.top=p[1]+"%"
-s.style.animationDelay=i*.3+"s"
-
-document.body.appendChild(s)
-
-})
 
 }
 
