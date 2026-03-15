@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Birthday Surprise</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 
@@ -31,7 +31,6 @@ font-family:'Pacifico',cursive;
 color:white;
 text-shadow:0 0 15px pink;
 display:none;
-z-index:20;
 }
 
 /* terminal */
@@ -72,7 +71,6 @@ left:0;
 width:100%;
 transform:translateY(-50%);
 height:300px;
-z-index:10;
 }
 
 .balloon{
@@ -82,9 +80,6 @@ border-radius:50%;
 position:absolute;
 cursor:pointer;
 animation:float 4s ease-in-out infinite;
-display:flex;
-align-items:center;
-justify-content:center;
 }
 
 .balloon::after{
@@ -109,7 +104,7 @@ left:50%;
 .b4{background:#b36bff;left:70%}
 .b5{background:#ff9ecf;left:85%}
 
-/* scroll */
+/* scroll message */
 
 #scroll{
 display:none;
@@ -122,7 +117,6 @@ text-align:center;
 box-shadow:0 20px 40px rgba(0,0,0,0.4);
 border:4px solid #d2b48c;
 font-family:Georgia;
-z-index:20;
 }
 
 #scroll button{
@@ -141,7 +135,6 @@ cursor:pointer;
 display:none;
 flex-direction:column;
 align-items:center;
-z-index:10;
 }
 
 #cake{
@@ -158,18 +151,57 @@ margin:5px;
 
 #final{
 display:none;
+flex-direction:column;
+align-items:center;
+}
+
+#happy{
 font-size:110px;
 font-family:'Pacifico',cursive;
 background:linear-gradient(45deg,#ff7eb9,#ffb347,#7efff5,#ff6b6b);
 -webkit-background-clip:text;
 color:transparent;
 text-shadow:0 0 25px white;
-animation:fadeIn 4s forwards;
+animation:fade 4s forwards;
 }
 
-@keyframes fadeIn{
-0%{opacity:0; transform:scale(0.6)}
-100%{opacity:1; transform:scale(1)}
+@keyframes fade{
+0%{opacity:0;transform:scale(.6)}
+100%{opacity:1;transform:scale(1)}
+}
+
+/* letter */
+
+#letterBtn{
+margin-top:30px;
+padding:14px 28px;
+font-size:20px;
+border:none;
+border-radius:10px;
+background:#ff7eb9;
+color:white;
+cursor:pointer;
+display:none;
+}
+
+#letter{
+display:none;
+background:#fff8dc;
+padding:35px;
+border-radius:12px;
+width:420px;
+text-align:center;
+font-family:'Great Vibes',cursive;
+font-size:28px;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+/* sienna hearts */
+
+#sienna{
+display:none;
+margin-top:40px;
+font-size:40px;
 }
 
 /* confetti */
@@ -182,8 +214,8 @@ animation:fall linear forwards;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh) rotate(0)}
-100%{transform:translateY(110vh) rotate(720deg)}
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
 }
 
 /* decorations */
@@ -198,6 +230,19 @@ animation:floatDecor linear infinite;
 100%{transform:translateY(-120vh)}
 }
 
+/* flowers */
+
+.flower{
+position:absolute;
+font-size:30px;
+animation:flowerFall linear infinite;
+}
+
+@keyframes flowerFall{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
+}
+
 </style>
 </head>
 
@@ -206,7 +251,6 @@ animation:floatDecor linear infinite;
 <div id="instruction"></div>
 
 <div id="terminal"></div>
-
 <button id="startBtn">Click on me</button>
 
 <div id="balloons">
@@ -236,60 +280,77 @@ animation:floatDecor linear infinite;
 
 </div>
 
-<div id="final">Happy Birthday</div>
+<div id="final">
+
+<div id="happy">Happy Birthday</div>
+
+<button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
+
+<div id="letter">
+
+<p>
+Today is a special day ✨<br><br>
+You are amazing and deserve happiness.<br>
+May all your dreams come true.<br><br>
+Happy Birthday Sienna 💖
+</p>
+
+<button onclick="showSienna()">One more surprise</button>
+
+</div>
+
+<div id="sienna"></div>
+
+</div>
 
 <script>
 
-const terminal=document.getElementById("terminal");
-const startBtn=document.getElementById("startBtn");
-const balloons=document.getElementById("balloons");
-const scroll=document.getElementById("scroll");
-const scrollText=document.getElementById("scrollText");
-const cakeArea=document.getElementById("cakeArea");
-const final=document.getElementById("final");
-const instruction=document.getElementById("instruction");
+const terminal=document.getElementById("terminal")
+const startBtn=document.getElementById("startBtn")
+const balloons=document.getElementById("balloons")
+const scroll=document.getElementById("scroll")
+const scrollText=document.getElementById("scrollText")
+const cakeArea=document.getElementById("cakeArea")
+const final=document.getElementById("final")
+const letterBtn=document.getElementById("letterBtn")
+const letter=document.getElementById("letter")
+const sienna=document.getElementById("sienna")
+const instruction=document.getElementById("instruction")
 
 const text=`Preparing something special...
 
-Loading music 🎵
 Loading happiness ✨
 Loading memories 💖
 
-Everything is ready...`;
+Everything ready...`
 
-let i=0;
+let i=0
 
 function type(){
-
 if(i<text.length){
-terminal.innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,35);
-}else{
-startBtn.style.display="block";
+terminal.innerHTML+=text.charAt(i)
+i++
+setTimeout(type,35)
+}else startBtn.style.display="block"
 }
 
-}
-
-type();
-
-/* start */
+type()
 
 startBtn.onclick=()=>{
 
-document.body.style.background="linear-gradient(135deg,#ffd6ec,#ffe8cc,#e0f7ff)";
+document.body.style.background="linear-gradient(135deg,#ffd6ec,#ffe8cc,#e0f7ff)"
 
-startBtn.style.display="none";
-terminal.style.display="none";
+terminal.style.display="none"
+startBtn.style.display="none"
 
-balloons.style.display="block";
+balloons.style.display="block"
 
-instruction.innerText="Click on the balloons 🎈";
-instruction.style.display="block";
+instruction.innerText="Click the balloons 🎈"
+instruction.style.display="block"
 
 }
 
-/* messages */
+/* balloons */
 
 const messages=[
 "You are amazing 💖",
@@ -297,37 +358,33 @@ const messages=[
 "Dream big and shine ✨",
 "You deserve happiness 🌸",
 "Make a wish 🎂"
-];
+]
 
-let currentBalloon;
-let popped=0;
+let popped=0
+let currentBalloon
 
 function openScroll(i){
-
-currentBalloon=i;
-scrollText.innerText=messages[i];
-scroll.style.display="block";
-
+currentBalloon=i
+scrollText.innerText=messages[i]
+scroll.style.display="block"
 }
 
 function closeScroll(){
 
-scroll.style.display="none";
+scroll.style.display="none"
 
-document.querySelectorAll(".balloon")[currentBalloon].innerHTML="💥";
+document.querySelectorAll(".balloon")[currentBalloon].innerHTML="💥"
 
-popped++;
+popped++
 
 if(popped===5){
 
-instruction.innerText="Blow out the candles (click on them) 🕯";
+instruction.innerText="Blow out the candles 🕯"
 
 setTimeout(()=>{
-
-balloons.style.display="none";
-cakeArea.style.display="flex";
-
-},600);
+balloons.style.display="none"
+cakeArea.style.display="flex"
+},600)
 
 }
 
@@ -335,17 +392,17 @@ cakeArea.style.display="flex";
 
 /* candles */
 
-let candles=5;
+let candles=5
 
 function blow(c){
 
-if(c.innerHTML==="💨") return;
+if(c.innerHTML==="💨") return
 
-c.innerHTML="💨";
-candles--;
+c.innerHTML="💨"
+candles--
 
 if(candles===0){
-showFinal();
+showFinal()
 }
 
 }
@@ -354,44 +411,142 @@ showFinal();
 
 function showFinal(){
 
-instruction.style.display="none";
+instruction.style.display="none"
 
-cakeArea.style.display="none";
-final.style.display="block";
+cakeArea.style.display="none"
+final.style.display="flex"
+
+letterBtn.style.display="block"
+
+createConfetti()
+createDecor()
+createFlowers()
+
+}
 
 /* confetti */
 
-for(let i=0;i<250;i++){
+function createConfetti(){
 
-let conf=document.createElement("div");
-conf.className="confetti";
+for(let i=0;i<220;i++){
 
-conf.style.left=Math.random()*100+"%";
-conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
-conf.style.animationDuration=(Math.random()*3+3)+"s";
+let conf=document.createElement("div")
+conf.className="confetti"
 
-document.body.appendChild(conf);
+conf.style.left=Math.random()*100+"%"
+conf.style.background=`hsl(${Math.random()*360},100%,60%)`
+conf.style.animationDuration=(Math.random()*3+3)+"s"
+
+document.body.appendChild(conf)
+
+}
 
 }
 
 /* decorations */
 
-const icons=["💖","🌸","🌼","🌺","🎈","🎶","🐶","💐","✨","🎵"];
+function createDecor(){
 
-for(let i=0;i<80;i++){
+const icons=["💖","🎈","🎶","🐶","✨"]
 
-let d=document.createElement("div");
+for(let i=0;i<40;i++){
 
-d.className="decor";
-d.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+let d=document.createElement("div")
 
-d.style.left=Math.random()*100+"%";
-d.style.fontSize=(Math.random()*40+30)+"px";
-d.style.animationDuration=(Math.random()*10+10)+"s";
+d.className="decor"
+d.innerHTML=icons[Math.floor(Math.random()*icons.length)]
 
-document.body.appendChild(d);
+d.style.left=Math.random()*100+"%"
+d.style.fontSize=(Math.random()*40+30)+"px"
+d.style.animationDuration=(Math.random()*10+10)+"s"
+
+document.body.appendChild(d)
 
 }
+
+}
+
+/* flowers */
+
+function createFlowers(){
+
+const flowers=["🌸","🌺","🌼","💮"]
+
+for(let i=0;i<40;i++){
+
+let f=document.createElement("div")
+
+f.className="flower"
+f.innerHTML=flowers[Math.floor(Math.random()*flowers.length)]
+
+f.style.left=Math.random()*100+"%"
+f.style.fontSize=(Math.random()*25+25)+"px"
+f.style.animationDuration=(Math.random()*8+6)+"s"
+
+document.body.appendChild(f)
+
+}
+
+}
+
+/* letter */
+
+function openLetter(){
+
+letterBtn.style.display="none"
+letter.style.display="block"
+
+}
+
+/* animated hearts forming SIENNA */
+
+function showSienna(){
+
+letter.style.display="none"
+
+const pattern=[
+"01110 10001 11110 11110 10001 10001",
+"10001 10001 10001 10001 11001 11001",
+"10000 10001 11110 11110 10101 10101",
+"10000 10001 10001 10001 10011 10011",
+"10001 10001 10001 10001 10001 10001",
+"01110 01110 11110 11110 10001 10001"
+]
+
+const colors=["💖","💜","💙","💛","🧡","❤️"]
+
+pattern.forEach((row,y)=>{
+
+[...row].forEach((col,x)=>{
+
+if(col==="1"){
+
+let heart=document.createElement("div")
+
+heart.innerHTML=colors[Math.floor(Math.random()*colors.length)]
+heart.style.position="absolute"
+
+heart.style.left=Math.random()*100+"%"
+heart.style.top="-50px"
+
+heart.style.fontSize="35px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+
+heart.style.transition="2s"
+
+heart.style.left=(x*35+window.innerWidth/2-200)+"px"
+heart.style.top=(y*40+300)+"px"
+
+},50)
+
+}
+
+})
+
+})
 
 }
 
