@@ -156,6 +156,7 @@ cursor:pointer;
 display:none;
 flex-direction:column;
 align-items:center;
+justify-content:center;
 margin-top:40px;
 }
 
@@ -164,34 +165,62 @@ position:relative;
 display:flex;
 flex-direction:column;
 align-items:center;
+margin-top:40px;
 }
 
+/* PLATE */
+
+#cake::after{
+content:"";
+position:absolute;
+bottom:-20px;
+width:320px;
+height:35px;
+background:radial-gradient(ellipse at center,#ffffff,#d6d6d6);
+border-radius:50%;
+box-shadow:0 10px 25px rgba(0,0,0,.5);
+}
+
+/* LAYERS */
+
 .layer{
-height:70px;
-border-radius:25px;
-margin-top:-15px;
+height:75px;
+border-radius:30px;
+margin-top:-20px;
 opacity:0;
 transform:translateY(80px);
 animation:cakeBuild 1s forwards;
 box-shadow:0 10px 25px rgba(0,0,0,.5);
+position:relative;
 }
 
-/* CORRECT ORDER */
+/* ICING */
+
+.layer::before{
+content:"";
+position:absolute;
+top:-10px;
+left:0;
+width:100%;
+height:20px;
+background:#fff;
+border-radius:20px;
+}
 
 .bottom{
-width:260px;
+width:280px;
 background:linear-gradient(#ff8ac6,#ff5ca8);
 animation-delay:0s;
 }
 
 .middle{
-width:200px;
+width:220px;
 background:linear-gradient(#ffd6ef,#ffc0e1);
 animation-delay:1s;
 }
 
 .top{
-width:140px;
+width:160px;
 background:linear-gradient(#ffb3d9,#ff8ac6);
 animation-delay:2s;
 }
@@ -272,6 +301,9 @@ display:none;
 
 #final{
 display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 text-align:center;
 }
 
@@ -296,13 +328,15 @@ cursor:pointer;
 #letter{
 display:none;
 background:#fff8dc;
-padding:35px;
+padding:40px;
 border-radius:12px;
 width:420px;
 font-family:'Great Vibes';
 font-size:30px;
 color:black;
-margin-top:20px;
+margin-top:30px;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,.5);
 }
 
 /* CONFETTI */
@@ -513,7 +547,7 @@ showFinal()
 function showFinal(){
 
 document.getElementById("cakeArea").style.display="none"
-document.getElementById("final").style.display="block"
+document.getElementById("final").style.display="flex"
 
 startConfetti()
 
