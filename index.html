@@ -1,205 +1,113 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise</title>
+<title>Happy Birthday Sienna</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
 height:100vh;
-overflow:hidden;
-background:#000;
 display:flex;
-align-items:center;
-justify-content:center;
 flex-direction:column;
-font-family:Arial;
+justify-content:center;
+align-items:center;
+background:linear-gradient(#050018,#0b0033,#14003d);
+font-family:'Poppins',sans-serif;
+overflow:hidden;
 color:white;
+text-align:center;
+}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:70px;
+margin:0;
+letter-spacing:2px;
+text-shadow:
+0 0 10px #fff,
+0 0 20px #ff80bf,
+0 0 40px #ff4da6;
+}
+
+#instruction{
+margin-top:10px;
+font-size:18px;
+opacity:.8;
 }
 
 /* SKY */
 
 #sky{
 position:absolute;
+top:0;
+left:0;
 width:100%;
 height:100%;
-background:radial-gradient(circle at bottom,#001,#000 70%);
-z-index:-1;
+pointer-events:none;
 }
 
 .star{
 position:absolute;
-width:2px;
-height:2px;
+width:4px;
+height:4px;
 background:white;
-animation:twinkle 2s infinite alternate;
+border-radius:50%;
+opacity:0;
+animation:twinkle 3s infinite alternate;
 }
 
 @keyframes twinkle{
-from{opacity:.3}
-to{opacity:1}
-}
-
-/* INSTRUCTION */
-
-#instruction{
-position:absolute;
-top:40px;
-font-family:'Pacifico';
-font-size:35px;
-text-shadow:0 0 10px pink;
-}
-
-/* TERMINAL */
-
-#terminal{
-width:600px;
-height:200px;
-background:#020617;
-padding:20px;
-border-radius:10px;
-color:#00ff9c;
-font-family:monospace;
-box-shadow:0 20px 40px rgba(0,0,0,.7);
-overflow:auto;
-}
-
-#startBtn{
-margin-top:30px;
-padding:15px 35px;
-font-size:22px;
-border:none;
-border-radius:12px;
-background:#ff4fa3;
-color:white;
-cursor:pointer;
-display:none;
-}
-
-/* BALLOONS */
-
-#balloons{
-display:none;
-position:absolute;
-top:50%;
-width:100%;
-transform:translateY(-50%);
-}
-
-.balloon{
-width:90px;
-height:110px;
-border-radius:50%;
-position:absolute;
-cursor:pointer;
-animation:float 4s ease-in-out infinite;
-box-shadow:inset -10px -20px 40px rgba(0,0,0,.3);
-}
-
-.balloon::after{
-content:"";
-position:absolute;
-width:2px;
-height:120px;
-background:#aaa;
-top:110px;
-left:50%;
-}
-
-@keyframes float{
-0%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
-100%{transform:translateY(0)}
-}
-
-.b1{background:#ff6b6b;left:10%}
-.b2{background:#ffd93d;left:30%}
-.b3{background:#6bc5ff;left:50%}
-.b4{background:#b36bff;left:70%}
-.b5{background:#ff9ecf;left:85%}
-
-/* SCROLL */
-
-#scroll{
-display:none;
-position:absolute;
-background:#fff8dc;
-padding:30px;
-border-radius:10px;
-width:420px;
-text-align:center;
-color:black;
-box-shadow:0 20px 40px rgba(0,0,0,0.4);
-border:4px solid #d2b48c;
-font-family:Georgia;
-}
-
-#scroll button{
-margin-top:20px;
-padding:10px 20px;
-border:none;
-background:#ff4fa3;
-color:white;
-border-radius:8px;
-cursor:pointer;
+0%{opacity:.2}
+100%{opacity:1}
 }
 
 /* CAKE */
 
-#cakeArea{
-display:none;
-flex-direction:column;
-align-items:center;
-margin-top:50px;
-}
-
 #cake{
+margin-top:40px;
 position:relative;
-width:260px;
 display:flex;
 flex-direction:column;
 align-items:center;
 }
 
-/* layers */
-
 .layer{
-height:60px;
-border-radius:20px;
-margin-top:-10px;
-box-shadow:0 10px 20px rgba(0,0,0,0.4);
+height:70px;
+border-radius:25px;
+margin-top:-15px;
 opacity:0;
+transform:translateY(80px);
+animation:cakeBuild 1s forwards;
+box-shadow:0 10px 25px rgba(0,0,0,.5);
 }
 
 .bottom{
-width:220px;
-background:linear-gradient(#ff9ecf,#ff7eb9);
+width:260px;
+background:linear-gradient(#ff8ac6,#ff5ca8);
+animation-delay:0s;
 }
 
 .middle{
-width:200px;
-background:linear-gradient(#fff0f5,#ffd6ec);
+width:220px;
+background:linear-gradient(#ffd6ef,#ffc0e1);
+animation-delay:1s;
 }
 
 .top{
 width:180px;
-background:linear-gradient(#ffb6c1,#ff8fab);
+background:linear-gradient(#ffb3d9,#ff8ac6);
+animation-delay:2s;
 }
 
-/* cake build animation */
-
-.drop{
-animation:drop 1s forwards;
+@keyframes cakeBuild{
+to{
+opacity:1;
+transform:translateY(0);
 }
-
-@keyframes drop{
-0%{transform:translateY(-200px);opacity:0}
-100%{transform:translateY(0);opacity:1}
 }
 
 /* CANDLES */
@@ -214,6 +122,7 @@ gap:18px;
 .candle{
 width:12px;
 height:40px;
+border-radius:4px;
 background:repeating-linear-gradient(
 45deg,
 white,
@@ -221,10 +130,7 @@ white 4px,
 #ff4fa3 4px,
 #ff4fa3 8px
 );
-border-radius:4px;
 position:relative;
-opacity:0;
-cursor:pointer;
 }
 
 .flame{
@@ -234,14 +140,14 @@ left:50%;
 transform:translateX(-50%);
 width:12px;
 height:18px;
-background:radial-gradient(circle,#fff 10%,#ffd000 40%,#ff7b00 70%);
 border-radius:50%;
+background:radial-gradient(circle,#fff,#ffd000,#ff7b00);
 animation:flicker .15s infinite alternate;
 }
 
 @keyframes flicker{
-0%{transform:translateX(-50%) scale(1)}
-100%{transform:translateX(-50%) scale(1.25)}
+from{transform:translateX(-50%) scale(1)}
+to{transform:translateX(-50%) scale(1.2)}
 }
 
 /* SMOKE */
@@ -254,96 +160,81 @@ width:10px;
 height:10px;
 background:gray;
 border-radius:50%;
-opacity:.6;
+opacity:.5;
 animation:smoke 1s forwards;
 }
 
 @keyframes smoke{
-0%{transform:translateY(0);opacity:.6}
+0%{transform:translateY(0);opacity:.7}
 100%{transform:translateY(-25px);opacity:0}
 }
 
-/* TEXT */
+/* BALLOONS */
 
-#blowText{
-margin-top:25px;
-font-family:'Pacifico';
-font-size:40px;
-display:none;
-}
-
-/* FINAL */
-
-#final{
-display:none;
-text-align:center;
-}
-
-#happy{
-font-size:90px;
-font-family:'Pacifico';
-}
-
-#letterBtn{
-margin-top:20px;
-padding:14px 28px;
-font-size:20px;
-border:none;
-border-radius:10px;
-background:#ff7eb9;
-color:white;
-cursor:pointer;
-}
-
-#letter{
-display:none;
-background:#fff8dc;
-padding:35px;
-border-radius:12px;
-width:420px;
-font-family:'Great Vibes';
-font-size:30px;
-color:black;
-margin-top:20px;
-}
-
-/* CONFETTI */
-
-.confetti{
+#balloons{
 position:absolute;
-width:10px;
-height:10px;
-top:-10px;
-animation:fall linear forwards;
+bottom:-150px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
 }
 
-@keyframes fall{
-to{transform:translateY(110vh);}
+.balloon{
+width:60px;
+height:80px;
+border-radius:50%;
+cursor:pointer;
+position:relative;
+animation:float 6s infinite ease-in-out;
+}
+
+.balloon:nth-child(1){background:#ff6fa8}
+.balloon:nth-child(2){background:#ffd166}
+.balloon:nth-child(3){background:#6ecbff}
+.balloon:nth-child(4){background:#9cff9c}
+.balloon:nth-child(5){background:#d39cff}
+
+.balloon::after{
+content:"";
+position:absolute;
+width:2px;
+height:120px;
+background:#999;
+top:80px;
+left:50%;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-30px)}
+100%{transform:translateY(0)}
 }
 
 /* CONSTELLATION */
 
-.const-star{
+.constellation{
 position:absolute;
-width:5px;
-height:5px;
+top:15%;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
+}
+
+.letter{
+display:grid;
+grid-template-columns:repeat(5,10px);
+gap:8px;
+}
+
+.dot{
+width:6px;
+height:6px;
 background:white;
 border-radius:50%;
-opacity:0;
-animation:appear 1s forwards;
-}
-
-@keyframes appear{
-to{opacity:1}
-}
-
-.line{
-position:absolute;
-height:2px;
-background:white;
-transform-origin:left;
-opacity:0;
-animation:appear 1s forwards;
+box-shadow:0 0 10px white;
+animation:twinkle 2s infinite alternate;
 }
 
 </style>
@@ -353,262 +244,122 @@ animation:appear 1s forwards;
 
 <div id="sky"></div>
 
-<div id="instruction"></div>
+<h1>Happy Birthday</h1>
+<h1>Sienna</h1>
+<div id="instruction">Pop the balloons 🎈</div>
 
-<div id="terminal"></div>
-<button id="startBtn">Click on me</button>
+<!-- CONSTELLATION -->
+<div class="constellation" id="constellation"></div>
 
-<div id="balloons">
-<div class="balloon b1" onclick="popBalloon(this,0)"></div>
-<div class="balloon b2" onclick="popBalloon(this,1)"></div>
-<div class="balloon b3" onclick="popBalloon(this,2)"></div>
-<div class="balloon b4" onclick="popBalloon(this,3)"></div>
-<div class="balloon b5" onclick="popBalloon(this,4)"></div>
-</div>
-
-<div id="scroll">
-<p id="scrollText"></p>
-<button onclick="closeScroll()">Continue</button>
-</div>
-
-<div id="cakeArea">
-
+<!-- CAKE -->
 <div id="cake">
-
-<div class="layer bottom" id="base"></div>
-<div class="layer middle" id="cream"></div>
-<div class="layer top" id="top"></div>
 
 <div id="candles"></div>
 
+<div class="layer top"></div>
+<div class="layer middle"></div>
+<div class="layer bottom"></div>
+
 </div>
 
-<div id="blowText">Blow out the candles 🕯</div>
-
-</div>
-
-<div id="final">
-
-<div id="happy">Happy Birthday</div>
-
-<button id="letterBtn" onclick="openLetter()">Open your final surprise 💌</button>
-
-<div id="letter">
-Today is a special day ✨<br><br>
-You deserve happiness.<br>
-May all your dreams come true.<br><br>
-Happy Birthday Sienna 💖
-</div>
-
+<!-- BALLOONS -->
+<div id="balloons">
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
 </div>
 
 <script>
 
-/* sky stars */
+/* STARS */
 
 for(let i=0;i<120;i++){
-let s=document.createElement("div")
-s.className="star"
-s.style.left=Math.random()*100+"%"
-s.style.top=Math.random()*100+"%"
-document.getElementById("sky").appendChild(s)
+let star=document.createElement("div")
+star.className="star"
+star.style.top=Math.random()*100+"%"
+star.style.left=Math.random()*100+"%"
+star.style.animationDelay=Math.random()*3+"s"
+sky.appendChild(star)
 }
 
-/* terminal typing */
+/* CANDLES */
 
-const terminal=document.getElementById("terminal")
-const startBtn=document.getElementById("startBtn")
-const instruction=document.getElementById("instruction")
-
-instruction.innerText="Loading surprise..."
-
-const text=`Preparing something special...
-
-Loading happiness ✨
-Loading memories 💖
-
-Everything ready...`
-
-let i=0
-
-function type(){
-if(i<text.length){
-terminal.innerHTML+=text.charAt(i)
-i++
-setTimeout(type,35)
-}else{
-startBtn.style.display="block"
-instruction.innerText="Click the button"
-}
-}
-
-type()
-
-startBtn.onclick=()=>{
-terminal.style.display="none"
-startBtn.style.display="none"
-document.getElementById("balloons").style.display="block"
-instruction.innerText="Pop the balloons 🎈"
-}
-
-/* balloons */
-
-const messages=[
-"You are amazing 💖",
-"Never stop smiling 😊",
-"Dream big ✨",
-"You deserve happiness 🌸",
-"Make a wish 🎂"
-]
-
-let popped=0
-
-function popBalloon(el,i){
-document.getElementById("scrollText").innerText=messages[i]
-document.getElementById("scroll").style.display="block"
-el.remove()
-}
-
-function closeScroll(){
-document.getElementById("scroll").style.display="none"
-popped++
-
-if(popped===5){
-document.getElementById("balloons").style.display="none"
-instruction.innerText=""
-buildCake()
-}
-}
-
-/* cake build */
-
-function buildCake(){
-
-document.getElementById("cakeArea").style.display="flex"
-
-setTimeout(()=>base.classList.add("drop"),200)
-setTimeout(()=>cream.classList.add("drop"),1200)
-setTimeout(()=>top.classList.add("drop"),2200)
-
-setTimeout(()=>createCandles(),3200)
-
-}
-
-function createCandles(){
-
-let container=document.getElementById("candles")
+const candles=document.getElementById("candles")
 
 for(let i=0;i<5;i++){
-
 let c=document.createElement("div")
 c.className="candle"
-c.onclick=()=>blow(c)
 
 let f=document.createElement("div")
 f.className="flame"
 
 c.appendChild(f)
 
-container.appendChild(c)
-
-setTimeout(()=>c.style.opacity=1,i*300)
-
-}
-
-setTimeout(()=>{
-document.getElementById("blowText").style.display="block"
-},1600)
-
-}
-
-/* candles */
-
-let candlesLeft=5
-
-function blow(c){
-
-if(c.classList.contains("off"))return
-
-c.classList.add("off")
-c.querySelector(".flame").remove()
-
+c.onclick=()=>{
+if(f){
 let smoke=document.createElement("div")
 smoke.className="smoke"
 c.appendChild(smoke)
-
-candlesLeft--
-
-if(candlesLeft===0){
-showFinal()
+f.remove()
+}
 }
 
+candles.appendChild(c)
 }
 
-/* final */
+/* BALLOONS */
 
-function showFinal(){
+let balloons=document.querySelectorAll(".balloon")
+let popped=0
 
-document.getElementById("cakeArea").style.display="none"
-document.getElementById("final").style.display="block"
+balloons.forEach(b=>{
+b.onclick=()=>{
+b.style.display="none"
+popped++
 
-startConfetti()
-createConstellation()
-
+if(popped===5){
+instruction.innerText="Blow out the candles 🕯"
 }
-
-/* confetti */
-
-function startConfetti(){
-
-setInterval(()=>{
-
-let conf=document.createElement("div")
-conf.className="confetti"
-
-conf.style.left=Math.random()*100+"%"
-conf.style.background=`hsl(${Math.random()*360},100%,60%)`
-conf.style.animationDuration=(Math.random()*3+3)+"s"
-
-document.body.appendChild(conf)
-
-setTimeout(()=>conf.remove(),6000)
-
-},120)
-
 }
-
-/* constellation SINNA */
-
-function createConstellation(){
-
-let stars=[
-[40,20],[43,23],[46,20],[49,23],[52,20],
-[55,23],[58,20],[61,23],[64,20]
-]
-
-stars.forEach((p,i)=>{
-
-let s=document.createElement("div")
-s.className="const-star"
-s.style.left=p[0]+"%"
-s.style.top=p[1]+"%"
-s.style.animationDelay=i*.3+"s"
-
-document.body.appendChild(s)
-
 })
 
+/* CONSTELLATION SINNA */
+
+const letters={
+S:[[0,0],[1,0],[2,0],[2,1],[1,2],[0,3],[1,4],[2,4]],
+I:[[1,0],[1,1],[1,2],[1,3],[1,4]],
+N:[[0,4],[0,3],[0,2],[1,1],[2,0],[2,1],[2,2],[2,3],[2,4]],
+A:[[1,0],[0,1],[2,1],[0,2],[1,2],[2,2],[0,3],[2,3],[0,4],[2,4]]
 }
 
-/* letter */
+const name="SINNA"
 
-function openLetter(){
-document.getElementById("letterBtn").style.display="none"
-document.getElementById("letter").style.display="block"
+const container=document.getElementById("constellation")
+
+name.split("").forEach(l=>{
+let grid=document.createElement("div")
+grid.className="letter"
+
+for(let r=0;r<5;r++){
+for(let c=0;c<3;c++){
+
+let dot=document.createElement("div")
+
+if(letters[l].some(p=>p[0]==c&&p[1]==r)){
+dot.className="dot"
 }
+
+grid.appendChild(dot)
+
+}
+}
+
+container.appendChild(grid)
+})
 
 </script>
 
 </body>
 </html>
-
